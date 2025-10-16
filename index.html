@@ -77,5 +77,69 @@
       o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,
       ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{},
       n=document.createElement("script"),n.type="text/javascript",n.async=!0,
-      n.src=r+"?sdkid="+e+"&lib="+t;e=docu
+      n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];
+      e.parentNode.insertBefore(n,e)
+    };
+    ttq.load('D3ON3MBC77UELR3N2FF0');
+    ttq.page();
+  }(window, document, 'ttq');
+  </script>
+  <!-- TikTok Pixel Code End -->
+</head>
 
+<body>
+  <div class="container">
+    <img src="foto.png" alt="Jenni" class="circle-img" />
+    <h1>🎉 Obrigado pela sua compra!</h1>
+    <p>Sua compra foi confirmada. Clique abaixo para entrar no grupo VIP exclusivo:</p>
+    <a href="https://t.me/+11iC-_M5ZxRiMGY5" class="btn">Entrar no Grupo VIP</a>
+  </div>
+
+  <!-- Purchase Event (dispara apenas uma vez por navegador) -->
+  <script>
+    (function firePurchaseOnce() {
+      var KEY = 'purchaseEventFired_v1';
+      if (localStorage.getItem(KEY)) {
+        console.log('Evento de compra já foi disparado anteriormente.');
+        return;
+      }
+
+      function sendPurchase() {
+        try {
+          fbq('track', 'Purchase', {
+            value: 18.00,
+            currency: 'BRL',
+            content_ids: ['produto_vip'],
+            content_type: 'product'
+          });
+
+          // 🔹 Também dispara o evento de compra no TikTok
+          if (typeof ttq === 'object' && typeof ttq.track === 'function') {
+            ttq.track('CompletePayment', {
+              value: 18.00,
+              currency: 'BRL',
+              contents: [{ content_id: 'produto_vip', content_type: 'product' }]
+            });
+          }
+
+          localStorage.setItem(KEY, 'true');
+          console.log('Evento de compra disparado com sucesso (FB + TikTok).');
+        } catch (e) {
+          console.warn('Falha ao disparar Purchase:', e);
+        }
+      }
+
+      if (typeof fbq === 'function' || (typeof ttq === 'object')) {
+        window.addEventListener('load', function(){ setTimeout(sendPurchase, 300); });
+      } else {
+        var tries = 0, iv = setInterval(function(){
+          if ((typeof fbq === 'function' && typeof ttq === 'object') || ++tries > 40) {
+            clearInterval(iv);
+            sendPurchase();
+          }
+        }, 100);
+      }
+    })();
+  </script>
+</body>
+</html>
