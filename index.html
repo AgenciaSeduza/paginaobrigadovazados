@@ -63,47 +63,19 @@
          src="https://www.facebook.com/tr?id=2744514579092435&ev=PageView&noscript=1"/>
   </noscript>
   <!-- End Meta Pixel Code -->
-</head>
 
-<body>
-  <div class="container">
-    <img src="foto.png" alt="Jenni" class="circle-img" />
-    <h1>🎉 Obrigado pela sua compra!</h1>
-    <p>Sua compra foi confirmada. Clique abaixo para entrar no grupo VIP exclusivo:</p>
-    <a href="https://t.me/+24WhoQ8FEQI3ODgx" class="btn">Entrar no Grupo VIP</a>
-  </div>
-
-  <!-- Purchase Event (dispara apenas uma vez por navegador) -->
+  <!-- TikTok Pixel Code Start -->
   <script>
-    (function firePurchaseOnce() {
-      var KEY = 'purchaseEventFired_v1';
-      if (localStorage.getItem(KEY)) {
-        console.log('Evento de compra já foi disparado anteriormente.');
-        return;
-      }
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
+    ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
+    ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
+    for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
+    ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};
+    ttq.load=function(e,n){
+      var r="https://analytics.tiktok.com/i18n/pixel/events.js",
+      o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,
+      ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{},
+      n=document.createElement("script"),n.type="text/javascript",n.async=!0,
+      n.src=r+"?sdkid="+e+"&lib="+t;e=docu
 
-      function sendPurchase() {
-        try {
-          fbq('track', 'Purchase', {
-            value: 18.00,
-            currency: 'BRL',
-            content_ids: ['produto_vip'],
-            content_type: 'product'
-          });
-          localStorage.setItem(KEY, 'true');
-          console.log('Evento de compra disparado com sucesso.');
-        } catch (e) {
-          console.warn('Falha ao disparar Purchase:', e);
-        }
-      }
-
-      if (typeof fbq === 'function') {
-        window.addEventListener('load', function(){ setTimeout(sendPurchase, 300); });
-      } else {
-        var tries = 0, iv = setInterval(function(){
-          if (typeof fbq === 'function' || ++tries > 40) {
-            clearInterval(iv);
-            if (typeof fbq === 'function') sendPurchase();
-            else console.warn('fbq não disponível para disparar Purchase.');
-          }
-        }, 100);
