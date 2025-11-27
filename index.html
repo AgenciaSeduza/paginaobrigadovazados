@@ -43,7 +43,7 @@
     .btn:hover { filter: brightness(1.1); }
   </style>
 
-  <!-- Meta Pixel Code -->
+  <!-- Meta Pixel (mantido como estava) -->
   <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -60,30 +60,15 @@
     <img height="1" width="1" style="display:none"
          src="https://www.facebook.com/tr?id=2744514579092435&ev=PageView&noscript=1"/>
   </noscript>
-  <!-- End Meta Pixel Code -->
 
-  <!-- TikTok Pixel Code Start (NOVO PIXEL) -->
+  <!-- NOVO PIXEL TIKTOK: D4K6SQJC77UA1JCQ09UG -->
   <script>
     !function (w, d, t) {
-      w.TiktokAnalyticsObject=t;
-      var ttq=w[t]=w[t]||[];
-      ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
-      ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
-      for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
-      ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};
-      ttq.load=function(e,n){
-        var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;
-        ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};
-        var n=document.createElement("script");
-        n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;
-        var e=document.getElementsByTagName("script")[0];
-        e.parentNode.insertBefore(n,e)
-      };
-      ttq.load('D4AJTMBC77U6T00CQEA0');
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+      ttq.load('D4K6SQJC77UA1JCQ09UG');
       ttq.page();
     }(window, document, 'ttq');
   </script>
-  <!-- TikTok Pixel Code End -->
 </head>
 <body>
   <div class="container">
@@ -93,13 +78,12 @@
     <a id="telegram-btn" href="https://t.me/+11iC-_M5ZxRiMGY5" class="btn">Entrar no Grupo VIP</a>
   </div>
 
-  <!-- TikTok Events API (Server-Side) + Purchase Event -->
+  <!-- API EVENTS COM NOVO TOKEN 9edce3df752d61b7e282608691f38b61da93e034 -->
   <script>
-    const TIKTOK_PIXEL_ID = 'D4AJTMBC77U6T00CQEA0';
-    const TIKTOK_ACCESS_TOKEN = 'db1ec0f179e9a622d47a643739f764f6a2025ea1';
+    const TIKTOK_PIXEL_ID = 'D4K6SQJC77UA1JCQ09UG';
+    const TIKTOK_ACCESS_TOKEN = '9edce3df752d61b7e282608691f38b61da93e034';
     const API_ENDPOINT = 'https://business-api.tiktok.com/open_api/v1.3/event/track/';
 
-    // Função para enviar evento via API (Server-Side)
     async function sendTikTokServerEvent(eventName, properties = {}) {
       const payload = {
         pixel_code: TIKTOK_PIXEL_ID,
@@ -128,7 +112,6 @@
           ...properties
         }
       };
-
       try {
         const response = await fetch(API_ENDPOINT, {
           method: 'POST',
@@ -138,7 +121,6 @@
           },
           body: JSON.stringify(payload)
         });
-
         const result = await response.json();
         if (response.ok && result.code === 0) {
           console.log(`[TikTok Server] ${eventName} enviado com sucesso!`);
@@ -150,25 +132,16 @@
       }
     }
 
-    // Dispara eventos apenas UMA VEZ por navegador
+    // Dispara Purchase + ViewContent UMA VEZ só
     (function fireEventsOnce() {
-      const PURCHASE_KEY = 'purchaseEventFired_v3'; // Atualizado para evitar conflito
-      if (localStorage.getItem(PURCHASE_KEY)) {
-        console.log('Eventos já disparados anteriormente.');
-        return;
-      }
+      const PURCHASE_KEY = 'purchaseEventFired_v6';
+      if (localStorage.getItem(PURCHASE_KEY)) return;
 
       function triggerEvents() {
-        // 1. ViewContent
         sendTikTokServerEvent('ViewContent');
+        sendTikTokServerEvent('Purchase', { value: 18.00 });
 
-        // 2. Purchase (Server-Side)
-        sendTikTokServerEvent('Purchase', {
-          value: 18.00,
-          currency: 'BRL'
-        });
-
-        // Meta Pixel
+        // Meta Pixel (mantido)
         if (typeof fbq === 'function') {
           fbq('track', 'Purchase', {
             value: 18.00,
@@ -178,30 +151,25 @@
           });
         }
 
-        // TikTok Client-Side (backup)
-        if (typeof ttq === 'object' && typeof ttq.track === 'function') {
+        // Backup client-side TikTok
+        if (window.ttq) {
           ttq.track('CompletePayment', {
             value: 18.00,
             currency: 'BRL',
-            contents: [{
-              content_id: 'produto_vip',
-              content_type: 'product',
-              content_name: 'Acesso VIP - Vazadinhos das Famosas'
-            }]
+            contents: [{ content_id: 'produto_vip', content_type: 'product' }]
           });
         }
 
         localStorage.setItem(PURCHASE_KEY, 'true');
-        console.log('Todos os eventos de compra disparados (Server + Client).');
+      }
       }
 
-      // Garante que pixels carregaram
-      if (typeof fbq === 'function' && typeof ttq === 'object') {
+      if (typeof fbq === 'function' && window.ttq) {
         window.addEventListener('load', () => setTimeout(triggerEvents, 300));
       } else {
         let tries = 0;
         const iv = setInterval(() => {
-          if ((typeof fbq === 'function' && typeof ttq === 'object') || ++tries > 40) {
+          if ((typeof fbq === 'function' && window.ttq) || ++tries > 40) {
             clearInterval(iv);
             triggerEvents();
           }
@@ -209,19 +177,11 @@
       }
     })();
 
-    // 3. CompleteRegistration ao clicar no botão
+    // CompleteRegistration no clique do Telegram
     document.getElementById('telegram-btn').addEventListener('click', () => {
-      sendTikTokServerEvent('CompleteRegistration', {
-        content_name: 'Entrada no Grupo VIP',
-        value: 18.00
-      });
-
-      if (typeof ttq === 'object') {
-        ttq.track('CompleteRegistration', {
-          content_id: 'produto_vip',
-          value: 18.00,
-          currency: 'BRL'
-        });
+      sendTikTokServerEvent('CompleteRegistration', { value: 18.00 });
+      if (window.ttq) {
+        ttq.track('CompleteRegistration');
       }
     });
   </script>
